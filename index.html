@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Reconocimiento de Voz</title>
+</head>
+<body>
+
+<h1> Reconocimiento de voz </h1>
+<p>Haz clic en el botón y habla para ver el resultado.</p>
+<button id="startBtn">Iniciar Reconocimiento de voz</button>
+
+<p id="result"></p>
+
+<script>
+	
+	const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition ||
+		window.mozSpeechRecognition || window.msSpeechRecognition)();
+
+		recognition.lang = "es-ES";
+
+		const startBtn = document.getElementById('startBtn');
+		const result = document.getElementById('result');
+
+		startBtn.addEventListener('click', () =>{
+
+			recognition.start();
+
+		});
+
+recognition.onstart = () =>{
+	result.innerHTML = 'Escuchando...'
+}
+
+recognition.onresult = (event) =>{
+
+	const transcript = event.results[0][0].transcript;
+	result.innerHTML = 'Resultado: ' + transcript;
+
+} 
+
+
+recognition.onerror = (event) =>{
+	result.innerHTML = 'Ha ocurrido un error durante el Reconocimiento' + event.error
+}
+
+</script>
+
+</body>
+</html>
